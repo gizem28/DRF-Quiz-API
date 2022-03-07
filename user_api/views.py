@@ -32,20 +32,18 @@ def logout_view(request):
         }
         return Response(data)
     
-
-# class LoginView(generics.CreateAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = LoginSerializer
-    
-class LoginView(APIView):
-    
-        # data = request.data
+class LoginView(generics.CreateAPIView):
         queryset = User.objects.all()
         serializer_class = LoginSerializer
 
-        # username = data.get('username', None)
-        # password = data.get('password', None)
         def post(self, request, format=None):
+            # data = request.data
+            serializer = self.get_serializer(data=request.data)
+            username = data.get('username', None)
+            password = data.get('password', None)
+            token= Token.objects.create(user=user)
+            data = serializer.data
+            data['token'] = token.key
             user = authenticate(username=username, password=password)
 
             if user is not None:
