@@ -34,4 +34,5 @@ urlpatterns = [
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
     path('__debug__/', include('debug_toolbar.urls')),
     path('user/', include('user_api.urls')),
+    path('quiz/', include('quiz.urls')),
 ]
