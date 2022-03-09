@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from .serializers import CategorySerializer, QuizSerializer
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from .models import Category, Quiz
-from rest_framework import generics
+from rest_framework.views import APIView
 # from .permissions import IsStuffOrReadOnly
 
-class QuizView(viewsets.ModelViewSet):
+class QuizListView(generics.ListAPIView):
     queryset= Quiz.objects.all()
     serializer_class = QuizSerializer
 

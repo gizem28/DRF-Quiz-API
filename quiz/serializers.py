@@ -14,17 +14,17 @@ class CategorySerializer(serializers.ModelSerializer):
         return obj.category.count()
         
 class QuizSerializer(serializers.ModelSerializer):
-    quiz= serializers.StringRelatedField(many=True)
-    quiz_count = serializers.SerializerMethodField()
+    # quiz= serializers.StringRelatedField(many=True)
+    # quiz_count = serializers.SerializerMethodField()
     
     class Meta:
-        model = Category
+        model = Quiz
         fields = (
             "id",
-            "quiz",
-            # "title",
-            "quiz_count"
+            # "quiz",
+            "title",
+            # "quiz_count"
         )
         
-    def get_quiz_count(self, obj):        
-        return obj.quiz.count()
+    # def get_quiz_count(self, obj):        
+        # return obj.quiz.count()
