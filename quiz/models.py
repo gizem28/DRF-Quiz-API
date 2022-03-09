@@ -2,10 +2,10 @@ from django.db import models
 
 # Create your models here.
 class Category(models.Model):
-    name = models.CharField(max_length=200)
+    category = models.CharField(max_length=200)
     
     def __str__(self):
-        return self.name
+        return self.category
     
 class Quiz(models.Model):
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, related_name="quiz")
@@ -14,6 +14,9 @@ class Quiz(models.Model):
     
     def __str__(self):
         return self.title
+    
+    class Meta:
+        verbose_name_plural = 'Quizzes'
     
 class Question(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.DO_NOTHING, related_name="question")

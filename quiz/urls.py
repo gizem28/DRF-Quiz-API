@@ -1,13 +1,10 @@
 from django.urls import path
 from rest_framework import routers
-from .views import CategoryView, QuizListView
+from .views import QuizRead, QuizListView
 
-# router= routers.DefaultRouter()
-# router.register('' , QuizView)
-# router.register('category' , CategoryView)
-# # router.register('category/title', QuizView)
+
 urlpatterns = [
-    path("", QuizListView.as_view(), name='quiz')
-]
+    path("", QuizListView.as_view(), name='quiz'),
+    path("<category>/", QuizRead.as_view(), name='quiz_read')
 
-# urlpatterns += router.urls
+]
