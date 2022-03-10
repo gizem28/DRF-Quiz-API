@@ -2,10 +2,10 @@ from django.db import models
 
 # Create your models here.
 class Category(models.Model):
-    category = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
     
     def __str__(self):
-        return self.category
+        return self.name
     
 class Quiz(models.Model):
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, related_name="quiz")
@@ -21,17 +21,17 @@ class Quiz(models.Model):
 class Question(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.DO_NOTHING, related_name="question")
     updated_date = models.DateTimeField(auto_now=True)
-    question = models.CharField(max_length=100)
+    title = models.CharField(max_length=100)
     levels = {
         ("H", "High"),
         ("M", "Medium"),
         ("L", "Low"),
     }
-    diffuculty= models.CharField(max_length=50, choices=levels)
+    difficulty= models.CharField(max_length=50, choices=levels)
     date_created =  models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return self.question
+        return self.title
     
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.DO_NOTHING, related_name="answer")
