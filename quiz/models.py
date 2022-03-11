@@ -18,6 +18,10 @@ class Quiz(models.Model):
     class Meta:
         verbose_name_plural = 'Quizzes'
     
+    @property
+    def question_count(self):
+        return self.question.count()
+    
 class Question(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.DO_NOTHING, related_name="question")
     updated_date = models.DateTimeField(auto_now=True)
@@ -36,7 +40,7 @@ class Question(models.Model):
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.DO_NOTHING, related_name="answer")
     updated_date = models.DateTimeField(auto_now=True)
-    answer = models.TextField(max_length=225, null=True)
+    answer = models.CharField(max_length=150, null=True)
     is_right = models.BooleanField(default=False)
     
     def __str__(self):

@@ -8,24 +8,20 @@ class AnswerSerializer(serializers.ModelSerializer):
         
 class QuestionSerializer(serializers.ModelSerializer):
     answer = AnswerSerializer(many=True)
-
     class Meta:
         model = Question
         fields = ('title', 'answer', 'difficulty',)
 
 class QuizSerializer(serializers.ModelSerializer):
     question= QuestionSerializer(many=True, write_only=True)
-    # question_count = serializers.SerializerMethodField()
     class Meta:
         model = Quiz
         fields = (
             "title",
             "question",
-            # "question_count"
+            "question_count"
         )
         
-        # def get_question_count(self, obj):        
-        #     return obj.question.count()
         
 class CategorySerializer(serializers.ModelSerializer):
     quiz = QuizSerializer(many=True, write_only=True)

@@ -30,7 +30,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # 'super_inlines',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -42,6 +41,7 @@ INSTALLED_APPS = [
     "drf_yasg",
     'rest_framework.authtoken',
     "django_filters",
+    'nested_admin',
     # my apps
     "user_api",
     "quiz",

@@ -23,36 +23,36 @@ class RegisterView(generics.CreateAPIView):
         headers = self.get_success_headers(serializer.data)
         return Response({"message": "created successfully", "details": data}, status=status.HTTP_201_CREATED, headers=headers)
   
-# @api_view(['POST'])
-# def logout_view(request):
-#     if request.method == 'POST':
-#         request.user.auth_token.delete()
-#         data = {
-#             'message': 'logout'
-#         }
-#         return Response(data)
-
-class LogoutView(APIView):
-    def get(self, request, format=None):
-        # simply delete the token to force a login
+@api_view(['POST'])
+def logout_view(request):
+    if request.method == 'POST':
         request.user.auth_token.delete()
-        return Response(status=status.HTTP_200_OK)
+        data = {
+            'message': 'logout'
+        }
+        return Response(data)
+
+# class LogoutView(APIView):
+#     def get(self, request, format=None):
+#         # simply delete the token to force a login
+#         request.user.auth_token.delete()
+#         return Response(status=status.HTTP_200_OK)
     
-class LoginView(generics.CreateAPIView):
-        queryset = User.objects.all()
-        serializer_class = LoginSerializer
+# class LoginView(generics.CreateAPIView):
+#         queryset = User.objects.all()
+#         serializer_class = LoginSerializer
 
-        def post(self, request, format=None):
-            data = request.data
-            username = data.get('username', None)
-            password = data.get('password', None)
-            user = authenticate(username=username, password=password)
+#         def post(self, request, format=None):
+#             data = request.data
+#             username = data.get('username', None)
+#             password = data.get('password', None)
+#             user = authenticate(username=username, password=password)
 
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return Response(status=status.HTTP_200_OK)
-                else:
-                    return Response(status=status.HTTP_404_NOT_FOUND)
-            else:
-                 return Response(status=status.HTTP_404_NOT_FOUND)
+#             if user is not None:
+#                 if user.is_active:
+#                     login(request, user)
+#                     return Response(status=status.HTTP_200_OK)
+#                 else:
+#                     return Response(status=status.HTTP_404_NOT_FOUND)
+#             else:
+#                  return Response(status=status.HTTP_404_NOT_FOUND)

@@ -4,7 +4,6 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
-
 schema_view = get_schema_view(
     openapi.Info(
         title="Quiz API",
@@ -33,6 +32,7 @@ urlpatterns = [
     ),
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
     path('__debug__/', include('debug_toolbar.urls')),
+    path('_nested_admin/', include('nested_admin.urls')),
     path('user/', include('user_api.urls')),
     path('quiz/', include('quiz.urls')),
 ]
