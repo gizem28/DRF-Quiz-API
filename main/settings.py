@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 from decouple import config
+import os
+import django_heroku
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -48,6 +51,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -130,3 +134,49 @@ REST_FRAMEWORK = {
        'rest_framework.authentication.TokenAuthentication'
     ]
 }
+
+
+THIRD_PARTY_APPS= ["debug_toolbar",]
+
+INSTALLED_APPS+= THIRD_PARTY_APPS
+
+THIRD_PARTY_MIDDLEWARE=["debug_toolbar.middleware.DebugToolbarMiddleware",]
+
+MIDDLEWARE+= THIRD_PARTY_MIDDLEWARE
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = config("DEBUG")
+
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": config("SQL_DATABASE"),
+#         "USER": config("SQL_USER"),
+#         "PASSWORD": config("SQL_PASSWORD"),
+#         "HOST": config("SQL_HOST"),
+#         "PORT": config("SQL_PORT"),
+#         "ATOMIC_REQUESTS": True,
+#     }
+# }
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+ os.path.join(BASE_DIR, 'static'),
+)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+django_heroku.settings(locals())
