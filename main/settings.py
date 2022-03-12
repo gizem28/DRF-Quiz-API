@@ -144,12 +144,12 @@ THIRD_PARTY_MIDDLEWARE=["debug_toolbar.middleware.DebugToolbarMiddleware",]
 
 MIDDLEWARE+= THIRD_PARTY_MIDDLEWARE
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -159,21 +159,20 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": config("SQL_DATABASE"),
-        "USER": config("SQL_USER"),
-        "PASSWORD": config("SQL_PASSWORD"),
-        "HOST": config("SQL_HOST"),
-        "PORT": config("SQL_PORT"),
-        "ATOMIC_REQUESTS": True,
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": config("SQL_DATABASE"),
+#         "USER": config("SQL_USER"),
+#         "PASSWORD": config("SQL_PASSWORD"),
+#         "HOST": config("SQL_HOST"),
+#         "PORT": config("SQL_PORT"),
+#         "ATOMIC_REQUESTS": True,
+#     }
+# }
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Extra places for collectstatic to find static files.
